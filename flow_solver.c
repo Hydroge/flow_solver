@@ -13,6 +13,7 @@
 #include <sys/time.h>
 #else
 #define WIN32_LEAN_AND_MEAN
+#define LONG_LONG long long
 #include <windows.h>
 #endif
 
@@ -1297,12 +1298,14 @@ void game_order_colors(game_info_t* info,
 
     }
 
-    mergesort(cf, info->num_colors, sizeof(color_features_t),
-              color_features_compare);
+    //mergesort(cf, info->num_colors, sizeof(color_features_t),color_features_compare);
+    qsort(cf, info->num_colors, sizeof(color_features_t),
+               color_features_compare);
 
     for (size_t i=0; i<info->num_colors; ++i) {
       info->color_order[i] = cf[i].index;
     }
+    
     
   }
 
