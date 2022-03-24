@@ -112,8 +112,6 @@ Python版本的编写思路：<https://mzucker.github.io/2016/09/02/eating-sat-f
 
 ## 谜题文件格式
 
-**WARNING: SOME CHANGES HAS BEEN MADE HERE, WITCH HAS MAKE THIS EDITION DIFFERENT FROM THE ORIGINAL VERSION.**
-
 **警告：此处作出了一些修改，使得该版本的计算器与原网站的计算器不同**
 
 普通的ASCII文件，文件的一行代表谜题的一行。使用以下字母来表示颜色：
@@ -136,10 +134,6 @@ Python版本的编写思路：<https://mzucker.github.io/2016/09/02/eating-sat-f
 | N      | dark blue 暗蓝色   |
 | O      | dark cyan 暗青色   |
 | P      | pink 粉色        |
-
-Any non-alphabetical, non-newline character becomes a blank space.
-Puzzle size is set by the number of characters before the first
-newline.
 
 任何非字母、非换行符的字符都会变成空白。
 
