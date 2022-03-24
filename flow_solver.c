@@ -1100,7 +1100,7 @@ int game_read_hint(const game_info_t* info,
     if (!s) { break; }
     size_t l = strlen(s);
     if (l > info->size+1 || s[l-1] != '\n') {
-      fprintf(stderr, "%s:%zu: line too long!\n", filename, y+1);
+      fprintf(stderr, "%s: %zu: line too long!\n", filename, y+1);
       fclose(fp);
       return 0;
     }
@@ -1109,7 +1109,7 @@ int game_read_hint(const game_info_t* info,
       if (isalpha(c)) {
         int color = c > 127 ? 0xff : info->color_tbl[c];
         if (color >= info->num_colors) {
-          fprintf(stderr, "%s:%zu: color %c not found!\n", filename, y+1, c);
+          fprintf(stderr, "%s: %zu: color %c not found!\n", filename, y+1, c);
           fclose(fp);
           return 0;
         }
@@ -2204,7 +2204,7 @@ void game_diagnostics(const game_info_t* info,
   printf("\n###################################"
          "###################################\n\n");
 
-  printf("node has cost to come %'g and cost to go %'g\n",
+  printf("node has cost to come %g and cost to go %g\n",
          node->cost_to_come, node->cost_to_go);
 
   if (node->state.last_color < info->num_colors) {
@@ -2383,10 +2383,10 @@ int game_search(const game_info_t* info,
 
   if (!g_options.display_quiet) {
     
-    printf("will search up to %'zu nodes (%'.2f MB)\n",
+    printf("will search up to %zu nodes (%.2f MB)\n",
            max_nodes, max_nodes*(double)sizeof(tree_node_t)/MEGABYTE);
   
-    printf("heuristic at start is %'g\n\n",
+    printf("heuristic at start is %g\n\n",
            root->cost_to_go);
 
     game_print(info, init_state);
@@ -2515,7 +2515,7 @@ int game_search(const game_info_t* info,
 
     double storage_mb = (storage.count * (double)sizeof(tree_node_t) / MEGABYTE);
 
-    printf("\nsearch %s after %'.3f seconds and %'zu nodes (%'.2f MB)\n",
+    printf("\nsearch %s after %.3f seconds and %zu nodes (%.2f MB)\n",
            SEARCH_RESULT_STRINGS[result],
            elapsed,
            storage.count, storage_mb);
@@ -2524,7 +2524,7 @@ int game_search(const game_info_t* info,
     
       assert(solution_node);
 
-      printf("final cost to come=%'g, cost to go=%'g\n",
+      printf("final cost to come=%g, cost to go=%g\n",
              solution_node->cost_to_come,
              solution_node->cost_to_go);
 
@@ -2597,7 +2597,7 @@ void usage(FILE* fp, int exitcode) {
           "  -O, --no-outside-in     Disable outside-in searching\n"
           "  -B, --breadth-first     Breadth-first search instead of best-first\n"
           "  -n, --max-nodes N       Restrict storage to N nodes\n"
-          "  -m, --max-storage N     Restrict storage to N MB (default %'g)\n"
+          "  -m, --max-storage N     Restrict storage to N MB (default %g)\n"
           "  -Q, --queue-always      Disable \"fast-forward\" queue bypassing\n"
           "\n"
           "Options affecting the next input file:\n\n"
@@ -2936,7 +2936,7 @@ int main(int argc, char** argv) {
 
       if (g_options.display_quiet) {
         
-        printf("%c %'12.3f %'12zu\n",
+        printf("%c %12.3f %12zu\n",
                SEARCH_RESULT_CHARS[result],
                elapsed, nodes);
 
@@ -2990,7 +2990,7 @@ int main(int argc, char** argv) {
 
       for (int i=0; i<3; ++i) {
         if (total_count[i]) {
-          printf("%'d %s searches took a total of %'.3f seconds and %'zu nodes\n",
+          printf("%d %s searches took a total of %.3f seconds and %zu nodes\n",
                  total_count[i], SEARCH_RESULT_STRINGS[i],
                  total_elapsed[i], total_nodes[i]);
         }
@@ -2998,8 +2998,8 @@ int main(int argc, char** argv) {
 
       if (types > 1) {
         printf("\n");
-        printf("overall, %'d searches took a total of %'.3f seconds "
-               "and %'zu nodes\n",
+        printf("overall, %d searches took a total of %.3f seconds "
+               "and %zu nodes\n",
                boards, overall_elapsed, overall_nodes);
       }
       
@@ -3008,7 +3008,7 @@ int main(int argc, char** argv) {
       printf("\n");
       for (int i=0; i<3; ++i) {
         if (total_count[i]) {
-          printf("%*s%3d total %c %'12.3f %'12zu\n",
+          printf("%*s%3d total %c %12.3f %12zu\n",
                  max_width-9, "",
                  total_count[i],
                  SEARCH_RESULT_CHARS[i],
@@ -3019,7 +3019,7 @@ int main(int argc, char** argv) {
 
       if (types > 1) {
         printf("\n");
-        printf("%*s%3d overall %'12.3f %'12zu\n",
+        printf("%*s%3d overall %12.3f %12zu\n",
                max_width-9, "",
                boards,
                overall_elapsed,
