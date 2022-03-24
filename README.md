@@ -1,6 +1,8 @@
 flow_solver
 ===========
 
+Original repository: <https://github.com/mzucker/flow_solver>, and the code here is edited & improved by hydroge.
+
 Fast automated solver for Flow Free in a single C or Python file. 
 
 Full writeup of C version at <https://mzucker.github.io/2016/08/28/flow-solver.html>.
@@ -17,6 +19,10 @@ No dependencies to install, just do this:
     cd build
     cmake .. -DCMAKE_BUILD_TYPE=Release
     make
+
+Or you can compile this .c file directly with DEV-C++.
+
+Visual Studio is NOT recommended, for it reports too many problems.
 
 Using the C version:
 ====================
